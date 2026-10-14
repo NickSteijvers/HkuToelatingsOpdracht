@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float moveSpeed = 5f;
     public float lookSpeed = 0.1f;
-    public float gravityStrength = 20f;
+    public float gravityStrength = 1f;
     public float rotateSpeed = 5f;
 
     public float groundCheckDistance = 1.1f;
@@ -76,6 +76,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void Interact2(InputAction.CallbackContext context)
+    {
+        if (context.performed && IsGrounded())
+        {
+            ChangeGravity2();
+        }
+    }
+
     private void ChangeGravity()
     {
         if (gravityDirection == Vector3.down)
@@ -86,6 +94,19 @@ public class PlayerMovement : MonoBehaviour
             gravityDirection = Vector3.right;
         else
             gravityDirection = Vector3.down;
+        rb.velocity = Vector3.zero;
+    }
+
+    private void ChangeGravity2()
+    {
+        if (gravityDirection == Vector3.down)
+            gravityDirection = Vector3.right;
+        else if (gravityDirection == Vector3.left)
+            gravityDirection = Vector3.down;
+        else if (gravityDirection == Vector3.up)
+            gravityDirection = Vector3.left;
+        else
+            gravityDirection = Vector3.up;
         rb.velocity = Vector3.zero;
     }
 
