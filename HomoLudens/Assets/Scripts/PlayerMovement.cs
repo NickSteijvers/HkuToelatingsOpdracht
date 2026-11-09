@@ -20,10 +20,13 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 gravityDirection = Vector3.down;
 
+    public GameObject victoryCanvas;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         rb.useGravity = false;
+        victoryCanvas.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -112,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        RaycastHit[] hits = Physics.RaycastAll(transform.position,gravityDirection, groundCheckDistance);
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, gravityDirection, groundCheckDistance);
 
         foreach (RaycastHit hit in hits)
         {
@@ -123,5 +126,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return false;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Air"))
+        {
+            Debug.Log("Win");
+            victoryCanvas.SetActive(true);
+        }
     }
 }

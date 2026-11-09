@@ -13,10 +13,9 @@ public class MainDoor : MonoBehaviour
 
     private void Update()
     {
-        if (button1Pressed && button2Pressed && button3Pressed)
+        if (Door.activeSelf && button1Pressed && button2Pressed && button3Pressed)
         {
             Door.SetActive(false);
-            Debug.Log("All buttons pressed! Door opened.");
         }
     }
 
